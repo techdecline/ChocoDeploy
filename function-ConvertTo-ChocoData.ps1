@@ -24,7 +24,7 @@ function ConvertTo-ChocoData {
         $Description = $ChocoInfo | Where-Object {$_.Trim() -match "^Description:.*"}
         $tags = $ChocoInfo[9]
 
-        $rtnObj = 1 | Select-Object @{Name = "PackageName";Expression = {($Title -split " ")[0]}},@{Name = "Description";Expression = {$Description -replace "^.*:",""}},@{Name = "Tags";Expression = {($tags -split "^.*: ","")[1]}}
+        $rtnObj = 1 | Select-Object @{Name = "PackageName";Expression = {($Title -split " ")[0]}},@{Name = "PackageVersion";Expression = {($Title -split " ")[1]}},@{Name = "Description";Expression = {($Description -replace "^.*:","").Trim()}},@{Name = "Tags";Expression = {($tags -split "^.*: ","")[1]}}
         return $rtnObj
     }
 }
