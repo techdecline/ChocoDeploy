@@ -26,7 +26,7 @@ Describe "$ModuleName Manifest Tests" {
         }
     }
 
-    $functionArr = ("Get-ChocoInfo","ConvertTo-ChocoData","Test-ChocoPackage")
+    $functionArr = ("Get-ChocoInfo","ConvertTo-ChocoData","Test-ChocoPackage","Get-ChocoWebData")
 
     foreach ($functionStr in $functionArr ) {
         Context "Test function $functionStr" {

@@ -3,6 +3,7 @@
 #region Helper functions
 . .\function-ConvertTo-ChocoData.ps1
 . .\function-Test-ChocoPackage.ps1
+. .\function-Get-ChocoWebData.ps1
 
 #endregion
 
