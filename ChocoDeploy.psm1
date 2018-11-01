@@ -4,6 +4,7 @@
 . .\function-ConvertTo-ChocoData.ps1
 . .\function-Test-ChocoPackage.ps1
 . .\function-Get-ChocoWebData.ps1
+. .\function-New-ChocoCMApplication.ps1
 
 #endregion
 
