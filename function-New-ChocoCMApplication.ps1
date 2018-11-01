@@ -68,8 +68,11 @@ function New-ChocoCMApplication {
         }
 
         Write-Verbose "Creating Application Container for $($packageObj.PackageName)"
-        new-cmapplication @appCreationParam
-        Set-CMApplication -Name $packageObj.PackageName -Keyword $packageObj.Tags
+        new-cmapplication @appCreationParam | out-null
+        Set-CMApplication -Name $packageObj.PackageName -Keyword $packageObj.Tags | out-null
+
+        Write-Verbose "Creating Chocolatey Deployment Type for: $($packageObj.PackageName)"
+        $newDeploymentType = New-ChocoDeploymentType -ApplicationName $packageObj.PackageName
     }
 
     end {
@@ -77,4 +80,4 @@ function New-ChocoCMApplication {
     }
 }
 
-# New-ChocoCMApplication -JsonFile .\examples\Firefox.json -CMSiteCode "DEC:" -Verbose -CMSiteServerFQDN cm-server1.decline.lab
+New-ChocoCMApplication -JsonFile .\examples\Firefox.json -CMSiteCode "DEC:" -Verbose -CMSiteServerFQDN cm-server1.decline.lab
