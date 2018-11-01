@@ -2,6 +2,7 @@
     .SYNOPSIS
     .DESCRIPTION
     .EXAMPLE
+    PS> New-ChocoCMApplication -JsonFile .\examples\Firefox.json -CMSiteCode "DEC:" -Verbose -CMSiteServerFQDN cm-server1.decline.lab
 #>
 
 function New-ChocoCMApplication {
@@ -31,7 +32,7 @@ function New-ChocoCMApplication {
         $jsonFullName = (get-item $JsonFile).FullName
         Write-Verbose "Loading ConfigMgr Module from: $modulePath"
         try {
-            Import-Module $modulePath -ErrorAction Stop
+            Import-Module $modulePath -ErrorAction Stop -Verbose:$false
             New-PSDrive -Name $CMSiteCode.Substring(0,3) -PSProvider CMSite -Root $CMSiteServerFQDN | Out-Null
             Push-Location -Path ($CMSiteCode + "\")
         }
@@ -51,7 +52,7 @@ function New-ChocoCMApplication {
             Write-Error "Could not load JSON input file"
         }
         Write-Verbose "Current Package is: $($packageObj.PackageName)"
-        $app = Get-CMApplication -Name $packageObj.PackageName -ErrorAction SilentlyContinue
+        $app = Get-CMApplication -Name $packageObj.PackageName -ErrorAction SilentlyContinue -Verbose:$false
 
         # Collect Parameters
         $appCreationParam = @{
@@ -59,6 +60,7 @@ function New-ChocoCMApplication {
             "LocalizedDescription" = $packageObj.Description
             "Publisher" = $packageObj.Author
             "SoftwareVersion" = $packageObj.Version
+            "Verbose" = $false
         }
 
         $imageFilePath = Get-ChocoCMImage -ImageUrl $packageObj.ImageUrl
@@ -69,10 +71,10 @@ function New-ChocoCMApplication {
 
         Write-Verbose "Creating Application Container for $($packageObj.PackageName)"
         new-cmapplication @appCreationParam | out-null
-        Set-CMApplication -Name $packageObj.PackageName -Keyword $packageObj.Tags | out-null
+        Set-CMApplication -Name $packageObj.PackageName -Keyword (Convert-ChocoCMTag -Tag $packageObj.Tags) -Verbose:$false| out-null
 
         Write-Verbose "Creating Chocolatey Deployment Type for: $($packageObj.PackageName)"
-        $newDeploymentType = New-ChocoDeploymentType -ApplicationName $packageObj.PackageName
+        $newDeploymentType = New-ChocoDeploymentType -ApplicationName $packageObj.PackageName -Verbose:$false
     }
 
     end {
@@ -80,4 +82,4 @@ function New-ChocoCMApplication {
     }
 }
 
-New-ChocoCMApplication -JsonFile .\examples\Firefox.json -CMSiteCode "DEC:" -Verbose -CMSiteServerFQDN cm-server1.decline.lab
+#New-ChocoCMApplication -JsonFile .\examples\Firefox.json -CMSiteCode "DEC:" -Verbose -CMSiteServerFQDN cm-server1.decline.lab

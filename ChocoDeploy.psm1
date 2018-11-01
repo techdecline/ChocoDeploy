@@ -7,6 +7,7 @@
 . .\function-New-ChocoCMApplication.ps1
 . .\function-New-ChocoCMDeploymentType.ps1
 . .\function-Get-ChocoCMImage.ps1
+. .\function-Convert-ChocoCMTag.ps1
 
 #endregion
 

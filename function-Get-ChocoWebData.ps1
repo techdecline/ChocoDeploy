@@ -4,7 +4,11 @@
     .DESCRIPTION
     Fetches additional package info for Chocolatey Package from web page.
     .EXAMPLE
-    PS> Get-ChocoWebData -PackageName GoogleChrome
+    PS> Get-ChocoWebData -PackageName adobereader -Verbose
+
+    ImageUrl                                                                                              Author
+    --------                                                                                              ------
+    https://rawgit.com/itigoag/chocolatey.adobe-acrobat-reader-dc/master/icon/adobe-acrobat-reader-dc.png Adobe
 #>
 function Get-ChocoWebData {
     [CmdletBinding()]
@@ -23,7 +27,7 @@ function Get-ChocoWebData {
 
         try {
             Write-Verbose "Package URL is: $uri"
-            $htmlObj = Invoke-WebRequest $uri -ErrorAction Stop
+            $htmlObj = Invoke-WebRequest $uri -ErrorVariable webError
 
             # get Logo Object and Image
             $logoObj = $htmlObj.ParsedHtml.getElementsByTagName("img") | Where-Object {$_.ClassName -eq "Logo"}
@@ -32,7 +36,7 @@ function Get-ChocoWebData {
             $titleStr = $LogoObj.title
             $titleStr = $titleStr -replace "^.*<iconUrl>",""
             $titleStr = $titleStr -replace "</iconUrl>.*$",""
-            Write-Verbose "Package Icon Url is: $PackageName"
+            Write-Verbose "Package Icon Url is: $titleStr"
             $packageInfo = 1 | Select-Object -Property @{Name = "ImageUrl";Expression = {$titleStr}}
             # get author info
             $authorObj = $htmlObj.ParsedHtml.getElementsByTagName("ul") | Where-Object {$_.ClassName -eq "Authors"}
@@ -46,10 +50,12 @@ function Get-ChocoWebData {
         catch
         {
             Write-Warning "Could not invoke web request"
-            return $null
+            return $webError
         }
     }
 
     end {
     }
 }
+
+#Get-ChocoWebData -PackageName adobereader -Verbose

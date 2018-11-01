@@ -27,7 +27,7 @@ function New-ChocoDeploymentType
         -InstallWorkingDirectory $ChocolateyLocation -UninstallCommand $uninstallCmd `
         -UninstallWorkingDirectory $ChocolateyLocation -ApplicationName $ApplicationName `
         -LogonRequirementType WhetherOrNotUserLoggedOn -ScriptLanguage PowerShell -ScriptText $scriptBlock `
-        -InstallationBehaviorType InstallForSystem -UserInteractionMode Hidden -ErrorAction SilentlyContinue
+        -InstallationBehaviorType InstallForSystem -UserInteractionMode Hidden -ErrorAction SilentlyContinue -Verbose:$false
 
     return $depTypeObj
 }
