@@ -5,6 +5,7 @@
 . .\function-Test-ChocoPackage.ps1
 . .\function-Get-ChocoWebData.ps1
 . .\function-New-ChocoCMApplication.ps1
+. .\function-Get-ChocoImage.ps1
 
 #endregion
 

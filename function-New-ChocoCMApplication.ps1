@@ -41,9 +41,27 @@ function New-ChocoCMApplication {
 
             Write-Verbose "Current Package is: $($packageObj.PackageName)"
             $app = Get-CMApplication -Name $PackageName -ErrorAction SilentlyContinue
+
+            # Collect Parameters
+            $appCreationParam = @{
+                "Name" = $packageObj.PackageName
+                "Description" = $packageObj.Description
+                "Publisher" = $packageObj.Author
+                "SoftwareVersion" = $packageObj.Version
+            }
+
+            $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.-ImageUrl
+
+            if ($imageFilePath) {
+                $appCreationParam.Add("ImagePath",$imageFilePath)
+            }
+
+            Write-Verbose "Creating Application COntainer for $($packageObj.PackageName)"
+            new-cmapplication @appCreationParam
         }
         catch {
             Write-Error "Could not load JSON input file"
         }
+
     }
 }
