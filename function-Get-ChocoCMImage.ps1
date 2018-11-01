@@ -3,12 +3,12 @@
     .DESCRIPTION
     .EXAMPLE
 #>
-function Get-ChocoImage {
+function Get-ChocoCMImage {
     [CmdletBinding()]
     param (
         # Provide Download URL
         [Parameter(Mandatory,ValueFromPipeline,Position=0)]
-        [ValidateScript({Invoke-webrequest -uri $_})]
+        [ValidateScript({Invoke-webrequest -uri $_ -usebasicparsing})]
         [String]
         $ImageUrl,
 
@@ -16,7 +16,12 @@ function Get-ChocoImage {
         [Parameter(Mandatory=$false)]
         [ValidateScript({TEst-Path $_})]
         [String]
-        $DownloadLocation = $env:TEMP
+        $DownloadLocation = $env:TEMP,
+
+        # Toggle Resize
+        [Parameter(Mandatory=$false)]
+        [Switch]
+        $DoNotResize
     )
 
     process {
@@ -30,8 +35,15 @@ function Get-ChocoImage {
                 Remove-Item $outputPath -Force
             }
             try {
-                Invoke-WebRequest -Uri $ImageUrl -OutFile $outputPath -ErrorAction Stop
+                Invoke-WebRequest -Uri $ImageUrl -OutFile $outputPath -ErrorAction Stop -UseBasicParsing
                 Write-Verbose "Image $ImageUrl has been downloaded to $outputPath"
+
+                if (-not ($DoNotResize)) {
+                    $resizeOutputPath = Join-Path -Path (Split-Path $outputPath -Parent) -ChildPath ("resize_" + $fileName)
+                    Resize-Image -InputFile $outputPath -OutputFile $resizeOutputPath -Width 250 -Height 250
+                    return $resizeOutputPath
+                }
+
                 return $outputPath
             }
             catch [System.Management.Automation.ActionPreferenceStopException] {
