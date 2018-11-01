@@ -101,7 +101,7 @@ PrivateData = @{
         # LicenseUri = ''
 
         # Eine URL zur Hauptwebsite für dieses Projekt.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/techdecline/ChocoDeploy'
 
         # Eine URL zu einem Symbol, das das Modul darstellt.
         # IconUri = ''
@@ -120,5 +120,3 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
-
-

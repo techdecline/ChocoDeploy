@@ -5,13 +5,25 @@
     Get-Choco queries the Chocolatey Package Repository for a given PackageName and returns a custom object containing the name, the author and a path to a temporarily downloaded image.
     .EXAMPLE
 
-    PS> Get-ChocoInfo -PackageName Chrome
+    PS> Get-ChocoInfo -PackageName GoogleChrome
+
+    Returns Package Data Object for GoogleChrome
+
+    .EXAMPLE
+
+    PS> Get-ChocoInfo -PackageName GoogleChrome -OutputPath "$Env:temp\ChocoApp"
+
+    Returns Package Data for Google Chrome as JSON File in $env:temp\ChocoApp
 #>
 function Get-ChocoInfo {
-    [Cmdletbinding()]
+    [Cmdletbinding(DefaultParameterSetName="Default")]
     param (
-        [Parameter(Mandatory,ValueFromPipeline)]
-        [String[]]$PackageName
+        [Parameter(Mandatory,ValueFromPipeline,Position=0)]
+        [String[]]$PackageName,
+
+        [Parameter(Mandatory,ParameterSetName="WithJson")]
+        [ValidateScript({Test-Path $_})]
+        [String]$OutputPath
     )
 
     begin {
@@ -46,6 +58,23 @@ function Get-ChocoInfo {
     }
 
     end {
-        return $rtnObj
+        if ($OutputPath) {
+            foreach ($pkgObj in $rtnObj) {
+                Write-Verbose "JSON export has been selected."
+                $jsonPath = Join-Path $OutputPath -ChildPath ($pkgObj.PackageName + ".json")
+                Write-Verbose "Output Path will be: $jsonPath"
+                try {
+
+                    $pkgObj | ConvertTo-Json | Out-File $jsonPath -ErrorAction Stop -Force
+                    Write-Verbose "Successfully saved JSON File"
+                }
+                catch [System.Management.Automation.ActionPreferenceStopException] {
+                    Write-Warning "Could not save JSON file: $jsonPath"
+                }
+            }
+        }
+        else {
+            return $rtnObj
+        }
     }
 }
