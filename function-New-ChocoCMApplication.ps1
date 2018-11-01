@@ -36,9 +36,11 @@ function New-ChocoCMApplication {
     process {
 
         try {
-            $packageObj = ConvertFrom-Json $JsonFile -ErrorAction Stop
+            Write-Verbose "Importing JSON File: $JsonFile"
+            $packageObj = get-content $JsonFile | ConvertFrom-Json $JsonFile -ErrorAction Stop
 
-
+            Write-Verbose "Current Package is: $($packageObj.PackageName)"
+            $app = Get-CMApplication -Name $PackageName -ErrorAction SilentlyContinue
         }
         catch {
             Write-Error "Could not load JSON input file"
