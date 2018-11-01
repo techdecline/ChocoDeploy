@@ -50,7 +50,7 @@ function New-ChocoCMApplication {
                 "SoftwareVersion" = $packageObj.Version
             }
 
-            $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.-ImageUrl
+            $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl
 
             if ($imageFilePath) {
                 $appCreationParam.Add("ImagePath",$imageFilePath)
