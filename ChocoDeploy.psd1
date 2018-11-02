@@ -12,7 +12,7 @@
 RootModule = 'ChocoDeploy.psm1'
 
 # Die Versionsnummer dieses Moduls
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.1.1'
 
 # Unterstützte PSEditions
 # CompatiblePSEditions = @()
@@ -84,7 +84,7 @@ AliasesToExport = '*'
 # DscResourcesToExport = @()
 
 # Liste aller Module in diesem Modulpaket
-# ModuleList = @()
+ModuleList = ".\submodules\ChocoDeployCM\ChocoDeployCM.psm1"
 
 # Liste aller Dateien in diesem Modulpaket
 # FileList = @()
