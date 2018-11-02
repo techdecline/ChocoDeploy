@@ -13,7 +13,7 @@ function Convert-ChocoCMTag {
     )
 
     process {
-        $tagMod = ($Tag -split " " ) -join ", "
+        $tagMod = $tag -split " "
         return $tagMod
     }
 }

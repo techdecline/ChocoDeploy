@@ -20,11 +20,12 @@ function ConvertTo-ChocoData {
 
     process {
         $Title = $ChocoInfo[1]
+        $DisplayName = (($ChocoInfo[2].trim() -replace "^Title: ","") -replace "\|.*$").trim()
         # $Description = $ChocoInfo[12] -replace "^.*:",""
         $Description = $ChocoInfo | Where-Object {$_.Trim() -match "^Description:.*"}
         $tags = $ChocoInfo[9]
 
-        $rtnObj = 1 | Select-Object @{Name = "PackageName";Expression = {($Title -split " ")[0]}},@{Name = "PackageVersion";Expression = {($Title -split " ")[1]}},@{Name = "Description";Expression = {($Description -replace "^.*:","").Trim()}},@{Name = "Tags";Expression = {($tags -split "^.*: ","")[1]}}
+        $rtnObj = 1 | Select-Object @{Name = "PackageName";Expression = {($Title -split " ")[0]}},@{Name = "PackageVersion";Expression = {($Title -split " ")[1]}},@{Name = "DisplayName";Expression = {$DisplayName}},@{Name = "Description";Expression = {($Description -replace "^.*:","").Trim()}},@{Name = "Tags";Expression = {($tags -split "^.*: ","")[1]}}
         return $rtnObj
     }
 }

@@ -59,8 +59,9 @@ function New-ChocoCMApplication {
             "Name" = $packageObj.PackageName
             "LocalizedDescription" = $packageObj.Description
             "Publisher" = $packageObj.Author
-            "SoftwareVersion" = $packageObj.Version
+            "SoftwareVersion" = $packageObj.PackageVersion
             "Verbose" = $false
+            "LocalizedName" = $packageObj.DisplayName
         }
 
         $imageFilePath = Get-ChocoCMImage -ImageUrl $packageObj.ImageUrl
