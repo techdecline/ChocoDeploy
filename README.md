@@ -29,6 +29,10 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 ### WIP
 
 * Intune App Creation
+  [X] Automatically create intunewin package containing install, uninstall and detection script per package
+  [] Implement https://github.com/microsoftgraph/Intune-PowerShell-SDK-Code-Generator for App creation
+  [] Combine scripts into ChocoDeployIntune Module
+  [] Update root scripts to support Intune app creation
 
 ### Backlog
 
