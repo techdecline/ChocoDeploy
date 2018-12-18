@@ -8,6 +8,7 @@
 . .\function-New-ChocoCMDeploymentType.ps1
 . .\function-Get-ChocoCMImage.ps1
 . .\function-Convert-ChocoCMTag.ps1
+. .\function-Add-ChocoCMDependency.ps1
 
 #endregion
 

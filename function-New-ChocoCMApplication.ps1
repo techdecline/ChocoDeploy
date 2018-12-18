@@ -75,6 +75,10 @@ function New-ChocoCMApplication {
 
         Write-Verbose "Creating Chocolatey Deployment Type for: $($packageObj.PackageName)"
         $newDeploymentType = New-ChocoDeploymentType -ApplicationName $packageObj.PackageName -Verbose:$false
+
+        # Chocolatey Client Application Name can be adjusted!
+        Write-Verbose "Adding dependency for: Chocolatey Client"
+        Add-ChocoCMDependency -TargetDeploymentType $newDeploymentType -ChocoAppName "Chocolatey Client"
     }
 
     end {
