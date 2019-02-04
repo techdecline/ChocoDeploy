@@ -11,7 +11,7 @@ function New-ChocoDeploymentType
     $dtName = "CHOCO_" + $ApplicationName
 
     $scriptBlock = @"
-    `$cmdReturn = Invoke-Expression "choco list --local-only $ApplicationName"
+    `$cmdReturn = Invoke-Expression "choco list --local-only --exact $ApplicationName"
     if (`$cmdReturn -eq "0 packages installed.")
     {
         return
