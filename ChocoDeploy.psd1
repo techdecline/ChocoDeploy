@@ -51,7 +51,7 @@ PowerShellVersion = '5.0'
 # ProcessorArchitecture = ''
 
 # Die Module, die vor dem Importieren dieses Moduls in die globale Umgebung geladen werden müssen
-RequiredModules = "Resize-Image"
+#RequiredModules = "Resize-Image"
 
 # Die Assemblys, die vor dem Importieren dieses Moduls geladen werden müssen
 # RequiredAssemblies = @()
@@ -108,6 +108,9 @@ PrivateData = @{
 
         # 'ReleaseNotes' des Moduls
         # ReleaseNotes = ''
+
+        # External Module Depedencies (need to be made available manually)
+        ExternalModuleDependencies = @("Resize-Image")
 
     } # Ende der PSData-Hashtabelle
 
