@@ -9,6 +9,7 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 * Chocolatey installed (see https://chocolatey.org/install)
 * Configuration Manager Console installed (for ConfigMgr Application Creation)
 * Internet connectivity
+* Download Script **Resize-Image** from Technet Gallery (https://gallery.technet.microsoft.com/scriptcenter/Resize-Image-File-f6dd4a56)
 
 ### Step by Step (ConfigMgr)
 
