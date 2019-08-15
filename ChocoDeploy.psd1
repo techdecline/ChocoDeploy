@@ -30,7 +30,7 @@ CompanyName = 'SoftEd Systems GmbH'
 Copyright = '(c) 2018 Cornelius Schuchardt. All rights reserved.'
 
 # Beschreibung der von diesem Modul bereitgestellten Funktionen
-# Description = ''
+Description = 'PowerShell Module to import Chocolatey packages to various Configuration Management Systems'
 
 # Die für dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
 PowerShellVersion = '5.0'
