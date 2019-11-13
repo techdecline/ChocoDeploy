@@ -1,15 +1,15 @@
 # Implement your module commands in this script.
 
 #region Helper functions
-. .\function-ConvertTo-ChocoData.ps1
-. .\function-Test-ChocoPackage.ps1
-. .\function-Get-ChocoWebData.ps1
+. $PSScriptRoot\function-ConvertTo-ChocoData.ps1
+. $PSScriptRoot\function-Test-ChocoPackage.ps1
+. $PSScriptRoot\function-Get-ChocoWebData.ps1
 
 #endregion
 
 #region Exported functions
-. .\function-Get-ChocoInfo.ps1
-. .\function-New-ChocoApp.ps1
+. $PSScriptRoot\function-Get-ChocoInfo.ps1
+. $PSScriptRoot\function-New-ChocoApp.ps1
 #endregion
 
 # Export only the functions using PowerShell standard verb-noun naming.
