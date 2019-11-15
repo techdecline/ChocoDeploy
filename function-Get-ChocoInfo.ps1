@@ -46,9 +46,9 @@ function Get-ChocoInfo {
                 Write-Verbose "Native command is: $cmd"
                 $cmdRtn = Invoke-Expression $cmd
                 Write-Verbose "Chocolatey return was: $cmdRtn"
-                $chocoObj = ConvertTo-ChocoData -ChocoInfo $cmdRtn
-                $webData = Get-ChocoWebData -PackageName $package
-                $chocoObj = $chocoObj | Select-Object -Property *,@{Name = "ImageUrl";Expression = {$webData.ImageUrl}},@{Name = "Author";Expression = {$webData.Author}}
+                $chocoObj = Get-ChocoApiData -PackageName $package
+                # $webData = Get-ChocoWebData -PackageName $package
+                # $chocoObj = $chocoObj | Select-Object -Property *,@{Name = "ImageUrl";Expression = {$webData.ImageUrl}},@{Name = "Author";Expression = {$webData.Author}}
                 $rtnObj += $chocoObj
             }
             else {
