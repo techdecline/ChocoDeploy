@@ -33,7 +33,7 @@ function New-ChocoApp {
             "ByConfigMgr" {
                 Write-Verbose "Selected Destination is ConfigMgr"
                 try {
-                    Import-Module ".\submodules\ChocoDeployCM\ChocoDeployCM.psm1"
+                    Import-Module "$PSScriptRoot\submodules\ChocoDeployCM\ChocoDeployCM.psm1"
                     New-ChocoCMApplication -JsonFile $JsonFile -CMSiteCode $CMSiteCode -Verbose -CMSiteServerFQDN $CMSiteServerFQDN
                 }
                 catch {
