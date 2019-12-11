@@ -110,7 +110,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # External Module Depedencies (need to be made available manually)
-        ExternalModuleDependencies = @("Set-ImageSize")
+        # ExternalModuleDependencies = @("Set-ImageSize")
 
     } # Ende der PSData-Hashtabelle
 
