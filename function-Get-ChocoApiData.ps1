@@ -7,7 +7,7 @@ function Get-ChocoApiData {
 
     process {
         $packageUri = "https://chocolatey.org/api/v2/package/" + $PackageName
-        $tmpFilePath = (Join-Path -Path $TempDirectory -ChildPath "$PackageName.nupkg")
+        $tmpFilePath = (Join-Path -Path $TempDirectory -ChildPath "$PackageName.zip")
         $tmpDirectory = Join-Path -Path $TempDirectory -ChildPath $PackageName
         try {
             Invoke-WebRequest -Uri $packageUri -OutFile $tmpFilePath -ErrorAction Stop -ErrorVariable webError | Out-Null
@@ -28,8 +28,8 @@ function Get-ChocoApiData {
                                                     @{Name = "ImageUrl"; Expression = {$nuspecXml.package.metadata.iconUrl}},
                                                     @{Name = "Author"; Expression = {$nuspecXml.package.metadata.authors}}
 
-        remove-item $tmpFilePath
-        Remove-Item $tmpDirectory
+        remove-item $tmpFilePath -Confirm:$false -Force
+        Remove-Item $tmpDirectory -Force -Confirm:$false -Recurse
         return $returnObj
     }
 }
