@@ -1,5 +1,5 @@
 function New-ChocoIntuneW32AppSources {
-    [cmdletbinding()]
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory,ValueFromPipeline,Position=0)]
         [ValidateScript({Test-path $_})]
@@ -7,7 +7,7 @@ function New-ChocoIntuneW32AppSources {
 
         [Parameter(Mandatory=$false)]
         [ValidateScript({Test-Path $_})]
-        [String]$PackagePath
+        [String]$PackagePath=$env:TEMP
     )
 
     process {
