@@ -13,12 +13,11 @@ function New-ChocoIntuneW32Package {
     process {
         $packageName = Split-Path $PackageFolder -Leaf
         Write-Verbose "Package name is: $packageName"
-        $intuneWinFile = Join-Path $PackageFolder -ChildPath "$$(packageName)_install.intunewin"
-        #Write-Verbose "Will Create Intunewinfile: $intuneWinFile"
-        $cmd = $IntuneWinAppUtilExe + " -c $PackageFolder -s $($PackageName)_install.cmd -o $PackageFolder -q"
-        #return $cmd
-        Write-Verbose "Command line is: $cmd"
-        Invoke-Expression $cmd | Out-Null
+        $intuneWinFile = Join-Path $PackageFolder -ChildPath "$($packageName)_install.intunewin"
+        Write-Verbose "Will Create Intunewinfile: $intuneWinFile"
+        $cmdParam = "-c $PackageFolder -s $($PackageName)_install.cmd -o $PackageFolder -q"
+        Write-Verbose "Attribute list is: $cmdParam"
+        Start-Process -FilePath $IntuneWinAppUtilExe -ArgumentList $cmdParam -Wait
 
         if (Test-Path $intuneWinFile) {
             return $intuneWinFile
@@ -28,5 +27,3 @@ function New-ChocoIntuneW32Package {
         }
     }
 }
-
-#New-ChocoIntuneW32Package -PackageFolder C:\Sys\git -IntuneWinAppUtilExe "C:\Users\administrator\Downloads\Intune-Win32-App-Packaging-Tool-1.3\Intune-Win32-App-Packaging-Tool-1.3\IntuneWinAppUtil.exe" -Verbose
