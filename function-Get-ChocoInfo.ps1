@@ -67,6 +67,7 @@ function Get-ChocoInfo {
 
                     $pkgObj | ConvertTo-Json | Out-File $jsonPath -ErrorAction Stop -Force
                     Write-Verbose "Successfully saved JSON File"
+                    return $jsonPath
                 }
                 catch [System.Management.Automation.ActionPreferenceStopException] {
                     Write-Warning "Could not save JSON file: $jsonPath"

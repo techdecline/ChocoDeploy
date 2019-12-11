@@ -12,7 +12,7 @@
 RootModule = 'ChocoDeploy.psm1'
 
 # Die Versionsnummer dieses Moduls
-ModuleVersion = '0.1.5'
+ModuleVersion = '0.1.6'
 
 # Unterstützte PSEditions
 # CompatiblePSEditions = @()
@@ -110,7 +110,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # External Module Depedencies (need to be made available manually)
-        ExternalModuleDependencies = @("Set-ImageSize")
+        # ExternalModuleDependencies = @("Set-ImageSize")
 
     } # Ende der PSData-Hashtabelle
 

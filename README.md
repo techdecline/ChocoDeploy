@@ -9,11 +9,10 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 * Chocolatey installed (see https://chocolatey.org/install)
 * Configuration Manager Console installed (for ConfigMgr Application Creation)
 * Internet connectivity
-* Download Script **Resize-Image** from Technet Gallery (https://gallery.technet.microsoft.com/scriptcenter/Resize-Image-File-f6dd4a56)
 
 ### Step by Step (ConfigMgr)
 
-1. Download and install module.
+1. Download and install module from PowerShell Gallery.
 2. Import Module
 3. Create JSON File
 `PS> Get-ChocoInfo -PackageName GoogleChrome -OutputPath "$Env:temp\"`
@@ -23,21 +22,7 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 
 ## Current State
 
-* Query choco catalog for package name (Get-ChocoInfo)
+* Query choco catalog for package name (Get-ChocoInfo) using Chocolatey API
 * Create custom Object with all relevant metadata (Name, Description, Author, Version, ImageUrl, Tags)
 * ConfigMgr App Creation
-
-### WIP
-
-#### Intune App Creation
-- [X] Automatically create intunewin package containing install, uninstall and detection script per package
-- [ ] Implement https://github.com/microsoftgraph/Intune-PowerShell-SDK-Code-Generator for App creation
-- [ ] Combine scripts into ChocoDeployIntune Module
-- [ ] Update root scripts to support Intune app creation
-
-### Backlog
-
-* App-V Auto Sequencer
-
-## How to get involved?
-Test, Test, Test, report bugs ;-)
+* SVG to jpeg Conversion
