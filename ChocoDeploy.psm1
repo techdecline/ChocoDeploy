@@ -4,7 +4,7 @@
 #. $PSScriptRoot\function-ConvertTo-ChocoData.ps1
 . $PSScriptRoot\function-Test-ChocoPackage.ps1
 #. $PSScriptRoot\function-Get-ChocoWebData.ps1
-. .$PSScriptRoot\function-Get-ChocoApiData.ps1
+. $PSScriptRoot\function-Get-ChocoApiData.ps1
 
 #endregion
 
