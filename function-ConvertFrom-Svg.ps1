@@ -1,4 +1,10 @@
+<#
+    .SYNOPSIS
+    .DESCRIPTION
+    .EXAMPLE
+#>
 function ConvertFrom-Svg {
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true)]
         [ValidateScript({Test-Path $_})]
@@ -20,5 +26,3 @@ function ConvertFrom-Svg {
         return $false
     }
 }
-
-

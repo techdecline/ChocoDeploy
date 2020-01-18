@@ -3,7 +3,7 @@
     .DESCRIPTION
     .EXAMPLE
 #>
-function Get-ChocoCMImage {
+function Get-ChocoImage {
     [CmdletBinding()]
     param (
         # Provide Download URL

@@ -24,7 +24,7 @@ GUID = 'e3a89c94-ae84-45cd-87ad-74c2e126332f'
 Author = 'Cornelius Schuchardt'
 
 # Unternehmen oder Hersteller dieses Moduls
-CompanyName = 'SoftEd Systems GmbH'
+#CompanyName = 'SoftEd Systems GmbH'
 
 # Urheberrechtserklärung für dieses Modul
 Copyright = '(c) 2018 Cornelius Schuchardt. All rights reserved.'
@@ -84,7 +84,7 @@ AliasesToExport = '*'
 # DscResourcesToExport = @()
 
 # Liste aller Module in diesem Modulpaket
-ModuleList = ".\submodules\ChocoDeployCM\ChocoDeployCM.psm1"
+ModuleList = @(".\submodules\ChocoDeployCM\ChocoDeployCM.psm1",".\submodules\ChocoDeployIntune\ChocoDeployIntune.psm1")
 
 # Liste aller Dateien in diesem Modulpaket
 # FileList = @()

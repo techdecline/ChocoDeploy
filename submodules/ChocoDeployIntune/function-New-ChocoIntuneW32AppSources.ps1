@@ -34,6 +34,7 @@ else
         $installCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd"))
         $uninstallCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd"))
         $detectCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1"))
+        $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
 
         return $pkgFolder.FullName
     }
