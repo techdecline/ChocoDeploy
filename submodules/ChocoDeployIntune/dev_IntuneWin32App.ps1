@@ -1,3 +1,4 @@
+#region Demo1
 # Package MSI as .intunewin file
 $SourceFolder = "C:\IntuneWinAppUtil\Source\7-Zip"
 $SetupFile = "7z1900-x64.msi"
@@ -26,7 +27,7 @@ $Win32App = Add-IntuneWin32App -TenantName "name.onmicrosoft.com" -FilePath $Int
 
 # Add assignment for all users
 Add-IntuneWin32AppAssignment -TenantName "name.onmicrosoft.com" -DisplayName $Win32App.displayName -Target "AllUsers" -Intent "available" -Notification "showAll" -Verbose
-
+#endregion
 
 
 Get-Module intunewin32app
