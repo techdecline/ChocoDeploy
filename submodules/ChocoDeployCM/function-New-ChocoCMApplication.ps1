@@ -64,7 +64,7 @@ function New-ChocoCMApplication {
             "LocalizedName" = $packageObj.DisplayName
         }
 
-        $imageFilePath = Get-ChocoCMImage -ImageUrl $packageObj.ImageUrl
+        $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl
 
         if ($imageFilePath) {
             $appCreationParam.Add("IconLocationFile",$imageFilePath)

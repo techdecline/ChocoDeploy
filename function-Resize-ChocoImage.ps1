@@ -1,4 +1,4 @@
-function ConvertFrom-Svg {
+function Resize-ChocoImage {
     param (
         [Parameter(Mandatory=$true)]
         [ValidateScript({Test-Path $_})]
@@ -13,7 +13,7 @@ function ConvertFrom-Svg {
     [System.Reflection.Assembly]::LoadFile((join-path -Path $Global:ModuleRoot -ChildPath "lib\SvgConvert.dll"))
 
     try {
-        [Chocodeploy.ConvertIcon]::ConvertSvg($SourceFile,$Destination)
+        [Chocodeploy.ConvertIcon]::ResizeImageFile($SourceFile,(Split-Path -Path $SourceFile -Parent))
         return $true
     }
     catch {

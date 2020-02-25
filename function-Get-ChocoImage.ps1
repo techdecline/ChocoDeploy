@@ -3,7 +3,7 @@
     .DESCRIPTION
     .EXAMPLE
 #>
-function Get-ChocoCMImage {
+function Get-ChocoImage {
     [CmdletBinding()]
     param (
         # Provide Download URL
@@ -51,7 +51,7 @@ function Get-ChocoCMImage {
                 }
                 Default {
                     Write-Verbose "Resizing Image"
-                    if (Resize-Image -SourceFile $outputPath) {
+                    if (Resize-ChocoImage -SourceFile $outputPath) {
                         return $outputPath
                     }
                     else {
