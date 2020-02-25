@@ -41,4 +41,4 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 
 * Create Chocolatey Client as App and create dependencies
 * Provide mechanism to update Chocolatey Packages
-+ Pester Tests and documentation
+* Pester Tests and documentation
