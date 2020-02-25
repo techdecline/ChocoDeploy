@@ -24,14 +24,21 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 1. Download and install module from PowerShell Gallery.
 2. Import Module
 3. Create JSON File
-`PS> Get-ChocoInfo -PackageName Winrar -OutputPath "$Env:temp\"`
+`PS> Get-ChocoInfo -PackageName Winrar -OutputPath C:\Code\Workbench\`
 4. Create Win32 App Package for Intune
-`PS>New-ChocoApp -PackageFolder C:\Temp\Winrar.json -IntuneWinAppExePath C:\Users\schuchardt\Downloads\Microsoft-Win32-Content-Prep-Tool-1.6\IntuneWinAppUtil.exe -Win32AppPath c:\Temp -Verbose`
-5. Upload generated Intunwin file in Intune portal and deploy manually
+`PS>New-ChocoApp -JsonFile C:\Code\Workbench\Winrar.json -IntuneWinAppExePath C:\Code\Workbench\Microsoft-Win32-Content-Prep-Tool-1.6\IntuneWinAppUtil.exe -TenantName declinelab.com -Verbose -Win32AppPath C:\Code\Workbench\`
+5. Deploy the app from the Intune Portal (Requires Chocolatey to be installed on Clients)
 
 ## Current State
 
 * Query choco catalog for package name (Get-ChocoInfo) using Chocolatey API
 * Create custom Object with all relevant metadata (Name, Description, Author, Version, ImageUrl, Tags)
 * ConfigMgr App Creation
-* SVG to jpeg Conversion
+* Intune App Creation
+* SVG to JPEG Conversion
+
+## Open Work Items
+
+* Create Chocolatey Client as App and create dependencies
+* Provide mechanism to update Chocolatey Packages
++ Pester Tests and documentation
