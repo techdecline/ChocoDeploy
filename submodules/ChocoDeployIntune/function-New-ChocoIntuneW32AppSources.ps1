@@ -15,7 +15,7 @@ function New-ChocoIntuneW32AppSources {
         $packageObj = get-content $jsonFullName | ConvertFrom-Json -ErrorAction Stop
 
         $pkgFolder = New-Item (Join-Path $PackagePath -ChildPath $packageObj.PackageName) -ItemType DIrectory -Force
-
+        $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
         $installCmd = "choco install " + $packageObj.PackageName + " -y"
         $uninstallCmd = "choco uninstall " + $packageObj.PackageName + " -y"
         $detectCmd = @"
@@ -30,13 +30,17 @@ else
 }
 "@
 
-
-        $installCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd"))
+        $installCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd"))
         $uninstallCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd"))
         $detectCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1"))
-        $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
+        #$imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
 
-        return $pkgFolder.FullName
+        $returnObj = 1 | Select-Object @{Name = "ApplicationDisplayName";Expression = {$packageObj.PackageName}},
+                                        @{Name = "InstallCommandline";Expression = {$installCmd}},
+                                        @{Name = "UninstallCommandline";Expression = {$uninstallCmd}},
+                                        @{Name = "DetectionScriptPath";Expression = {Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1")}},
+                                        @{Name = "IconFilePath";Expression = {$imageFilePath}}
+        return $returnObj
     }
 }
 

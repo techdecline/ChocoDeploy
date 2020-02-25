@@ -35,7 +35,12 @@ function New-ChocoApp {
         [Parameter(Mandatory=$false,ParameterSetName="ByIntune")]
         [ValidateScript({Test-Path $_ -PathType Container})]
         [string]
-        $Win32AppPath
+        $Win32AppPath,
+
+        # Specify Tenant Name for Intune App
+        [Parameter(Mandatory,ParameterSetName="ByIntune")]
+        [string]
+        $TenantName
     )
 
     begin {
@@ -57,7 +62,21 @@ function New-ChocoApp {
                 Write-Verbose "Selected Destination is Intune"
                 try {
                     Import-Module "$PSScriptRoot\submodules\ChocoDeployIntune\ChocoDeployIntune.psm1"
-                    New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile | New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath
+                    #New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile | New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath
+                    Write-Verbose "Creating Application Sources"
+                    $intuneAppStagingObj = New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile
+
+                    $jsonFullName = (get-item $JsonFile).FUllName
+                    $packageObj = get-content $jsonFullName | ConvertFrom-Json -ErrorAction Stop
+                    $intuneAppStagingObj = $intuneAppStagingObj | Select-Object -Property *,@{Name = "IntuneAppFilePath";Expression = {New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath -PackageFolder (Split-Path $_.DetectionScriptPath)}},
+                                                                                            @{Name = "TenantName";Expression = {$TenantName}},
+                                                                                            @{Name = "ApplicationDescription";Expression = {$packageObj.Description}},
+                                                                                            @{Name = "ApplicationPublisherName";Expression = {$packageObj.Author}}
+
+
+                    #return $intuneAppStagingObj
+                    $appStagingParam = $intuneAppStagingObj.psobject.properties | ForEach-Object -begin {$h=@{}} -process {$h."$($_.Name)" = $_.Value} -end {$h}
+                    New-ChocoIntuneW32App @appStagingParam
                 }
                 catch {
                     Write-Warning "Could not create Application"

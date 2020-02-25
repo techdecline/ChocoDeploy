@@ -13,6 +13,7 @@
 . $PSScriptRoot\function-New-ChocoApp.ps1
 . $PSScriptRoot\function-ConvertFrom-Svg.ps1
 . $PSScriptRoot\function-Get-ChocoImage.ps1
+. $PSScriptRoot\function-Resize-ChocoImage.ps1
 #endregion
 
 # Export only the functions using PowerShell standard verb-noun naming.

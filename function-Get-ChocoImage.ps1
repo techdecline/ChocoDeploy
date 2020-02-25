@@ -51,7 +51,7 @@ function Get-ChocoImage {
                 }
                 Default {
                     Write-Verbose "Resizing Image"
-                    if (Resize-Image -SourceFile $outputPath) {
+                    if (Resize-ChocoImage -SourceFile $outputPath) {
                         return $outputPath
                     }
                     else {

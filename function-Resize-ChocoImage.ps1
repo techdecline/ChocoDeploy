@@ -1,4 +1,4 @@
-function Resize-Image {
+function Resize-ChocoImage {
     param (
         [Parameter(Mandatory=$true)]
         [ValidateScript({Test-Path $_})]
