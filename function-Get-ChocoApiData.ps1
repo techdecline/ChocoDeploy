@@ -6,11 +6,13 @@ function Get-ChocoApiData {
     )
 
     process {
+        [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
         $packageUri = "https://chocolatey.org/api/v2/package/" + $PackageName
         $tmpFilePath = (Join-Path -Path $TempDirectory -ChildPath "$PackageName.zip")
         $tmpDirectory = Join-Path -Path $TempDirectory -ChildPath $PackageName
         try {
-            Invoke-WebRequest -Uri $packageUri -OutFile $tmpFilePath -ErrorAction Stop -ErrorVariable webError | Out-Null
+            #Invoke-WebRequest -Uri $packageUri -OutFile $tmpFilePath -ErrorAction Stop -ErrorVariable webError | Out-Null
+            Invoke-RestMethod -Method Get -Uri $packageUri -OutFile $tmpFilePath -ErrorAction Stop -ErrorVariable webError | Out-Null
         }
         catch [System.Management.Automation.ActionPreferenceStopException] {
             Write-Warning "Could not invoke web request"
