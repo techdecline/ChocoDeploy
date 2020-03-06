@@ -3,16 +3,9 @@
     .DESCRIPTION
     .EXAMPLE
 #>
-function New-ChocoApp {
+function New-ChocoClientApp {
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (
-        # Specify JSON Input File
-        [Parameter(Mandatory,ValueFromPipeline,Position=0)]
-        [ValidateScript({Test-Path $_})]
-        [ValidatePattern(".*.json")]
-        [String]
-        $JsonFile,
-
         # Specify ConfigMgr Site Code
         [Parameter(Mandatory,ParameterSetName="ByConfigMgr")]
         [ValidatePattern("^\w{3}:$")]
@@ -23,6 +16,11 @@ function New-ChocoApp {
         [Parameter(Mandatory,ParameterSetName="ByConfigMgr")]
         [String]
         $CMSiteServerFQDN,
+
+        # Specify CM Application Location
+        [Parameter(Mandatory,ParameterSetName="ByConfigMgr")]
+        [String]
+        $CMApplicationPath,
 
         # Specify Path for Intune Win32 App Preparation Tool
         [Parameter(Mandatory,ParameterSetName="ByIntune")]
@@ -52,14 +50,22 @@ function New-ChocoApp {
                 Write-Verbose "Selected Destination is ConfigMgr"
                 try {
                     Import-Module "$PSScriptRoot\submodules\ChocoDeployCM\ChocoDeployCM.psm1"
-                    New-ChocoCMApplication -JsonFile $JsonFile -CMSiteCode $CMSiteCode -Verbose -CMSiteServerFQDN $CMSiteServerFQDN
+                    $appParam = @{
+                        CMSiteCode = $CMSiteCode
+                        CMSiteServerFQDN = $CMSiteServerFQDN
+                        SetupScriptLocation = "$PSScriptRoot\Setup-Chocolatey.ps1"
+                        ApplicationLocation = $CMApplicationPath
+                    }
+                    New-ChocoCMClientApplication @appParam
                 }
                 catch {
-                    Write-Warning "Could not create Application"
+                    Write-Warning "Could not create Chocolatey Client Application: $($error[0].Exception.Message)"
                 }
             }
             "ByIntune" {
                 Write-Verbose "Selected Destination is Intune"
+                throw "Not implemented yet"
+                <#
                 try {
                     Import-Module "$PSScriptRoot\submodules\ChocoDeployIntune\ChocoDeployIntune.psm1"
                     #New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile | New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath
@@ -81,6 +87,7 @@ function New-ChocoApp {
                 catch {
                     Write-Warning "Could not create Application: $error[0].exception.message"
                 }
+                #>
             }
         }
     }

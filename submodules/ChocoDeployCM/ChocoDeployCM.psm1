@@ -7,5 +7,6 @@
 
 # published functions
 . $PSScriptRoot\function-New-ChocoCMApplication.ps1
+. $PSScriptRoot\function-New-ChocoCMClientApllication.ps1
 
-Export-ModuleMember -Function New-ChocoCMApplication
+Export-ModuleMember -Function New-ChocoCMApplication,New-ChocoCMClientApllication

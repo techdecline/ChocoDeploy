@@ -24,7 +24,11 @@ function New-ChocoCMApplication {
         # Specify CM Site Server FQDN
         [Parameter(Mandatory)]
         [String]
-        $CMSiteServerFQDN
+        $CMSiteServerFQDN,
+
+        # Switch to skip dependency creation
+        [Parameter(Mandatory=$false)]
+        [switch]$SkipDependency
     )
     begin {
         # Connect ConfigMgr
@@ -77,9 +81,11 @@ function New-ChocoCMApplication {
         Write-Verbose "Creating Chocolatey Deployment Type for: $($packageObj.PackageName)"
         $newDeploymentType = New-ChocoDeploymentType -ApplicationName $packageObj.PackageName -Verbose:$false
 
+        if (-not $SkipDependency) {
         # Chocolatey Client Application Name can be adjusted!
-        Write-Verbose "Adding dependency for: Chocolatey Client"
-        Add-ChocoCMDependency -TargetDeploymentType $newDeploymentType -ChocoAppName "Chocolatey Client"
+            Write-Verbose "Adding dependency for: Chocolatey Client"
+            Add-ChocoCMDependency -TargetDeploymentType $newDeploymentType -ChocoAppName "Chocolatey Client"
+        }
     }
 
     end {

@@ -1,2 +1,0 @@
-Import-module .\ChocoDeploy.psd1
-New-ChocoApp -JsonFile C:\Code\Workbench\GoogleChrome.json -IntuneWinAppExePath "C:\Code\Workbench\Microsoft-Win32-Content-Prep-Tool-1.6\IntuneWinAppUtil.exe" -Win32AppPath C:\Code\Workbench -Verbose
