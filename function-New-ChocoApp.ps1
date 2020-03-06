@@ -79,7 +79,7 @@ function New-ChocoApp {
                     New-ChocoIntuneW32App @appStagingParam
                 }
                 catch {
-                    Write-Warning "Could not create Application"
+                    Write-Warning "Could not create Application: $error[0].exception.message"
                 }
             }
         }

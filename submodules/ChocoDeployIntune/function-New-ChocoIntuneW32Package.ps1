@@ -23,7 +23,8 @@ function New-ChocoIntuneW32Package {
             return $intuneWinFile
         }
         else {
-            "Could not create Intune W32 package"
+            write-warning "Could not create Intune W32 package: $error[0].exception.message"
+            return
         }
     }
 }
