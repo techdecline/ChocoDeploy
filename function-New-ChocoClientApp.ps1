@@ -3,7 +3,7 @@
     .DESCRIPTION
     .EXAMPLE
 #>
-function New-ChocoApp {
+function New-ChocoClientApp {
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (
         # Specify ConfigMgr Site Code
