@@ -9,7 +9,7 @@ function Install-Chocolatey
     [CmdletBinding()]
     Param
     (
-        
+
     )
     Process
     {
@@ -21,7 +21,7 @@ function Install-Chocolatey
 function Uninstall-Chocolatey
 {
     [CmdletBinding()]
-    param 
+    param
     (
 
     )
@@ -84,17 +84,17 @@ function Test-Chocolatey
     param (
 
     )
-    Process 
+    Process
     {
         if (!$env:ChocolateyInstall) {
-          Write-Warning "The ChocolateyInstall environment variable was not found. `n Chocolatey is not detected as installed."
+          #Write-Warning "The ChocolateyInstall environment variable was not found. `n Chocolatey is not detected as installed."
           # return null because of ConfigMgr Detection Rule Logic
           return $null
         }
         else {
             Write-Verbose "The ChocolateyInstall environment variable was found."
             return $true
-        } 
+        }
     }
 }
 

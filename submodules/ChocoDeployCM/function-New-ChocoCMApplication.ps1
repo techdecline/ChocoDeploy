@@ -61,11 +61,19 @@ function New-ChocoCMApplication {
         # Collect Parameters
         $appCreationParam = @{
             "Name" = $packageObj.PackageName
-            "LocalizedDescription" = $packageObj.Description
+            # "LocalizedDescription" = $packageObj.Description
             "Publisher" = $packageObj.Author
             "SoftwareVersion" = $packageObj.PackageVersion
             "Verbose" = $false
             "LocalizedName" = $packageObj.DisplayName
+        }
+
+        if ($packageObj.Description.length -gt 2047) {
+            Write-Verbose "Description needs to be trimmed"
+            $appCreationParam.Add("LocalizedDescription",($packageObj.Description -split '\n##')[0])
+        }
+        else {
+            $appCreationParam.Add("LocalizedDescription",$packageObj.Description)
         }
 
         $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl
