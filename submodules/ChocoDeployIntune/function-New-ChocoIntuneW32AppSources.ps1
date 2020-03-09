@@ -26,7 +26,8 @@ if (`$cmdReturn -eq "0 packages installed.")
 }
 else
 {
-    return `$true
+    "app detected"
+    return 0
 }
 "@
 
