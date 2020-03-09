@@ -64,20 +64,16 @@ function New-ChocoClientApp {
             }
             "ByIntune" {
                 Write-Verbose "Selected Destination is Intune"
-                throw "Not implemented yet"
-                <#
+
                 try {
                     Import-Module "$PSScriptRoot\submodules\ChocoDeployIntune\ChocoDeployIntune.psm1"
-                    #New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile | New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath
+                    #New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile | New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePathremo
                     Write-Verbose "Creating Application Sources"
-                    $intuneAppStagingObj = New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile
+                    $intuneAppStagingObj = New-ChocoIntuneW32ClientAppSources -PackagePath $Win32AppPath -SetupScriptLocation "$PSScriptRoot\Setup-Chocolatey.ps1"
 
-                    $jsonFullName = (get-item $JsonFile).FUllName
-                    $packageObj = get-content $jsonFullName | ConvertFrom-Json -ErrorAction Stop
-                    $intuneAppStagingObj = $intuneAppStagingObj | Select-Object -Property *,@{Name = "IntuneAppFilePath";Expression = {New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath -PackageFolder (Split-Path $_.DetectionScriptPath)}},
+                    $intuneAppStagingObj = $intuneAppStagingObj | Select-Object -Property *,@{Name = "IntuneAppFilePath";Expression = {New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath -PackageFolder (Split-Path $_.DetectionScriptPath) -SetupFileName "Install_Chocolatey.cmd"}},
                                                                                             @{Name = "TenantName";Expression = {$TenantName}},
-                                                                                            @{Name = "ApplicationDescription";Expression = {$packageObj.Description}},
-                                                                                            @{Name = "ApplicationPublisherName";Expression = {$packageObj.Author}}
+                                                                                            @{Name = "ApplicationPublisherName";Expression = {"Chocolatey"}}
 
 
                     #return $intuneAppStagingObj
@@ -85,9 +81,8 @@ function New-ChocoClientApp {
                     New-ChocoIntuneW32App @appStagingParam
                 }
                 catch {
-                    Write-Warning "Could not create Application: $error[0].exception.message"
+                    Write-Warning "Could not create Application: $($error[0].exception.message)"
                 }
-                #>
             }
         }
     }

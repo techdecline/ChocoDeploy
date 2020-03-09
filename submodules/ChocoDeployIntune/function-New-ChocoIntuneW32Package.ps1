@@ -7,15 +7,26 @@ function New-ChocoIntuneW32Package {
 
         [Parameter(Mandatory)]
         [ValidateScript({Test-Path $_})]
-        [String]$IntuneWinAppUtilExe
+        [String]$IntuneWinAppUtilExe,
+
+        # Enter Package installer (optional)
+        [Parameter(Mandatory=$false)]
+        [String]$SetupFileName
     )
 
     process {
         $packageName = Split-Path $PackageFolder -Leaf
         Write-Verbose "Package name is: $packageName"
-        $intuneWinFile = Join-Path $PackageFolder -ChildPath "$($packageName)_install.intunewin"
         Write-Verbose "Will Create Intunewinfile: $intuneWinFile"
-        $cmdParam = "-c $PackageFolder -s $($PackageName)_install.cmd -o $PackageFolder -q"
+        if (-not ($SetupFileName)) {
+            $cmdParam = "-c $PackageFolder -s $($PackageName)_install.cmd -o $PackageFolder -q"
+            $intuneWinFile = Join-Path $PackageFolder -ChildPath "$($packageName)_install.intunewin"
+        }
+        else {
+            $cmdParam = "-c $PackageFolder -s $SetupFileName -o $PackageFolder -q"
+            $intuneWinFile = Join-Path $PackageFolder -ChildPath ($SetupFileName -replace "\..*$",".intunewin")
+        }
+
         Write-Verbose "Attribute list is: $cmdParam"
         Start-Process -FilePath $IntuneWinAppUtilExe -ArgumentList $cmdParam -Wait
 
@@ -23,7 +34,7 @@ function New-ChocoIntuneW32Package {
             return $intuneWinFile
         }
         else {
-            write-warning "Could not create Intune W32 package: $error[0].exception.message"
+            write-warning "Could not create Intune W32 package: $($error[0].exception.message)"
             return
         }
     }
