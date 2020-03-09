@@ -59,7 +59,7 @@ function New-ChocoIntuneW32App {
         $TenantName
     )
     process {
-        $imgFile = New-IntuneWin32AppIcon -FilePath $IconFilePath
+
 
         $appCreateParam = @{
             DetectionRule = New-IntuneWin32AppDetectionRule -PowerShellScript -ScriptFile $DetectionScriptPath
@@ -70,9 +70,14 @@ function New-ChocoIntuneW32App {
             InstallCommandLine = $InstallCommandLine
             UninstallCommandline = $UninstallCommandLine
             InstallExperience = "system"
-            Icon = $imgFile
+            #Icon = $imgFile
             Description = $ApplicationDescription
             Publisher = $ApplicationPublisherName
+        }
+
+        if ($IconFilePath) {
+            $imgFile = New-IntuneWin32AppIcon -FilePath $IconFilePath
+            $appCreateParam.Add("Icon",$imgFile)
         }
         Write-Verbose "Creating Intune Application: $ApplicationDisplayName"
         Add-IntuneWin32App @appCreateParam
