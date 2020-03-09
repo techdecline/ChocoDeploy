@@ -14,7 +14,7 @@ function Get-ChocoImage {
 
         # Optional Download Location
         [Parameter(Mandatory=$false)]
-        [ValidateScript({TEst-Path $_})]
+        [ValidateScript({Test-Path $_})]
         [String]
         $DownloadLocation = $env:TEMP,
 
@@ -27,8 +27,9 @@ function Get-ChocoImage {
     process {
         # download image
         $fileName = Split-Path $ImageUrl -Leaf
-        Write-Verbose "Download Location will be: $fileName"
+        Write-Verbose "File Name is: $fileName"
         $outputPath = Join-Path $DownloadLocation -ChildPath $fileName
+        Write-Verbose -Message "Download Path will be $outputPath"
         if ( Test-Path $outputPath )
         {
             Remove-Item $outputPath -Force
@@ -51,11 +52,12 @@ function Get-ChocoImage {
                 }
                 Default {
                     Write-Verbose "Resizing Image"
-                    if (Resize-ChocoImage -SourceFile $outputPath) {
-                        return $outputPath
+                    try {
+                        Resize-ChocoImage -FilePath $outputPath | Out-Null
                     }
-                    else {
-                        return $false
+                    catch [System.Exception] {
+                        Write-Warning "Could not resize Image: $($error[0].exception.Message)"
+                        return $null
                     }
                 }
             }
