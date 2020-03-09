@@ -14,7 +14,7 @@ function Get-ChocoImage {
 
         # Optional Download Location
         [Parameter(Mandatory=$false)]
-        [ValidateScript({TEst-Path $_})]
+        [ValidateScript({Test-Path $_})]
         [String]
         $DownloadLocation = $env:TEMP,
 
@@ -27,8 +27,9 @@ function Get-ChocoImage {
     process {
         # download image
         $fileName = Split-Path $ImageUrl -Leaf
-        Write-Verbose "Download Location will be: $fileName"
+        Write-Verbose "File Name is: $fileName"
         $outputPath = Join-Path $DownloadLocation -ChildPath $fileName
+        Write-Verbose -Message "Download Path will be $outputPath"
         if ( Test-Path $outputPath )
         {
             Remove-Item $outputPath -Force

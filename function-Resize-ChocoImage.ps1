@@ -6,14 +6,17 @@ function Resize-ChocoImage {
 
         [Parameter(Mandatory=$false)]
         [ValidateScript({Test-Path $_})]
-        [String]$Destination = (Split-Path -Path $SourceFile -Parent)
+        [String]$Destination
     )
 
+    if (-not ($Destination)) {
+        $Destination = (Split-Path -Path $SourceFile -Parent)
+    }
     [System.Reflection.Assembly]::LoadFile((join-path -Path $Global:ModuleRoot -ChildPath "lib\Svg.dll"))
     [System.Reflection.Assembly]::LoadFile((join-path -Path $Global:ModuleRoot -ChildPath "lib\SvgConvert.dll"))
 
     try {
-        [Chocodeploy.ConvertIcon]::ResizeImageFile($SourceFile,(Split-Path -Path $SourceFile -Parent))
+        [Chocodeploy.ConvertIcon]::ResizeImageFile($SourceFile,$Destination)
         return $true
     }
     catch {
