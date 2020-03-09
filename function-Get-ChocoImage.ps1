@@ -52,11 +52,12 @@ function Get-ChocoImage {
                 }
                 Default {
                     Write-Verbose "Resizing Image"
-                    if (Resize-ChocoImage -SourceFile $outputPath) {
-                        return $outputPath
+                    try {
+                        Resize-ChocoImage -FilePath $outputPath | Out-Null
                     }
-                    else {
-                        return $false
+                    catch [System.Exception] {
+                        Write-Warning "Could not resize Image: $($error[0].exception.Message)"
+                        return $null
                     }
                 }
             }
