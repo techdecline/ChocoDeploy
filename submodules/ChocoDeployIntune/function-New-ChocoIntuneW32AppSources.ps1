@@ -31,8 +31,8 @@ else
 }
 "@
 
-        $installCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd"))
-        $uninstallCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd"))
+        $installCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd")) -Encoding utf8NoBOM
+        $uninstallCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd")) -Encoding utf8NoBOM
         $detectCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1"))
         #$imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
 

@@ -20,8 +20,8 @@ function New-ChocoIntuneW32ClientAppSources {
             $detectionScript = Copy-Item (get-item $SetupScriptLocation).PSPath -Destination $appLocation.FullName -Force -PassThru
             $installScript = Join-Path -Path $appLocation.FullName -childPath "Install_Chocolatey.cmd"
             $uninstallScript = Join-Path -Path $appLocation.FullName -childPath "Uninstall_Chocolatey.cmd"
-            '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install"' | Out-File -FilePath $installScript -Force -Encoding utf8
-            '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Uninstall"' | Out-File -FilePath $uninstallScript -Force -Encoding utf8
+            '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install"' | Out-File -FilePath $installScript -Force -Encoding utf8NoBOM
+            '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Uninstall"' | Out-File -FilePath $uninstallScript -Force -Encoding utf8NoBOM
 
         }
         catch [System.Exception] {
