@@ -31,9 +31,12 @@ else
 }
 "@
 
-        $installCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd")) -Encoding utf8NoBOM
-        $uninstallCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd")) -Encoding utf8NoBOM
-        $detectCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1"))
+        #$installCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd")) -Encoding utf8NoBOM
+        [System.IO.File]::WriteAllLines((Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_install.cmd")),$installCmd)
+        #$uninstallCmd |Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd")) -Encoding utf8NoBOM
+        [System.IO.File]::WriteAllLines((Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_uninstall.cmd")),$uninstallCmd)
+        #$detectCmd | Out-File -FilePath (Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1"))
+        [System.IO.File]::WriteAllLines((Join-Path $pkgFolder.FullName -ChildPath ($packageObj.PackageName + "_detect.ps1")),$detectCmd)
         #$imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
 
         $returnObj = 1 | Select-Object @{Name = "ApplicationDisplayName";Expression = {$packageObj.PackageName}},
