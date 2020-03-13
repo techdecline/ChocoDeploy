@@ -19,6 +19,8 @@ function New-ChocoIntuneW32ClientAppSources {
             Write-Verbose "Creating Source Files at: $($appLocation.FullName)"
             $detectionScript = Copy-Item (get-item $SetupScriptLocation).PSPath -Destination $appLocation.FullName -Force -PassThru
             $installScript = Join-Path -Path $appLocation.FullName -childPath "Install_Chocolatey.cmd"
+            # add soft reboot exit code
+            $installScript = [String]::Concat($installScript,"`nexit 3010")
             $uninstallScript = Join-Path -Path $appLocation.FullName -childPath "Uninstall_Chocolatey.cmd"
             #'%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install"' | Out-File -FilePath $installScript -Force -Encoding utf8NoBOM
             [System.IO.File]::WriteAllLines($installScript,'%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install"')
