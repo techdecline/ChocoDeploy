@@ -86,7 +86,14 @@ function Test-Chocolatey
     )
     Process
     {
-        if (!$env:ChocolateyInstall) {
+        if (-not (Test-Path "$env:ALLUSERSPROFILE\Chocolatey\bin\choco.exe")) {
+            return
+        }
+        else {
+            Write-Verbose "The Chocolatey Executable variable was found."
+            return $true
+        }
+        <#if (!$env:ChocolateyInstall) {
           #Write-Warning "The ChocolateyInstall environment variable was not found. `n Chocolatey is not detected as installed."
           # return null because of ConfigMgr Detection Rule Logic
           return $null
@@ -94,7 +101,7 @@ function Test-Chocolatey
         else {
             Write-Verbose "The ChocolateyInstall environment variable was found."
             return $true
-        }
+        }#>
     }
 }
 

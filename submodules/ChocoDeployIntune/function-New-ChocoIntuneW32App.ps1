@@ -63,7 +63,7 @@ function New-ChocoIntuneW32App {
 
         $appCreateParam = @{
             DetectionRule = New-IntuneWin32AppDetectionRule -PowerShellScript -ScriptFile $DetectionScriptPath
-            RestartBehavior = "suppress"
+            RestartBehavior = "basedOnReturnCode"
             TenantName = $TenantName
             FilePath = $IntuneAppFilePath
             DisplayName = $ApplicationDisplayName
