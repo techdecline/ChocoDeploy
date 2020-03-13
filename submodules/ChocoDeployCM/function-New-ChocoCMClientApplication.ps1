@@ -32,9 +32,10 @@ function New-ChocoCMClientApplication {
             Copy-Item (get-item $SetupScriptLocation).PSPath -Destination $appLocation.FullName -Force
             $installScript = Join-Path -Path $appLocation.FullName -childPath "Install_Chocolatey.cmd"
             $uninstallScript = Join-Path -Path $appLocation.FullName -childPath "Uninstall_Chocolatey.cmd"
-            '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install"' | Out-File -FilePath $installScript -Force -Encoding utf8
-            '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Uninstall"' | Out-File -FilePath $uninstallScript -Force -Encoding utf8
-
+            #'%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install"' | Out-File -FilePath $installScript -Force -Encoding utf8NoBOM
+            [System.IO.File]::WriteAllLines($installScript,'%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Install" -ExecutionPolicy Bypass')
+            #'%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Uninstall"' | Out-File -FilePath $uninstallScript -Force -Encoding utf8NoBOM
+            [System.IO.File]::WriteAllLines($uninstallScript,'%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "%~dp0Setup-Chocolatey.ps1 -Mode Uninstall" -ExecutionPolicy Bypass')
         }
         catch [System.Exception] {
             throw "Could not create source files: $($error.exception.message)"
