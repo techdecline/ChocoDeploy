@@ -12,7 +12,7 @@
 RootModule = 'ChocoDeploy.psm1'
 
 # Die Versionsnummer dieses Moduls
-ModuleVersion = '0.2.8'
+ModuleVersion = '0.2.9'
 
 # Unterstützte PSEditions
 # CompatiblePSEditions = @()
