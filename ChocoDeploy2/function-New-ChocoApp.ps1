@@ -62,7 +62,6 @@ function New-ChocoApp {
                 Write-Verbose "Selected Destination is Intune"
                 try {
                     Import-Module "$PSScriptRoot\submodules\ChocoDeployIntune\ChocoDeployIntune.psm1"
-                    #New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile | New-ChocoIntuneW32Package -IntuneWinAppUtilExe $IntuneWinAppExePath
                     Write-Verbose "Creating Application Sources"
                     $intuneAppStagingObj = New-ChocoIntuneW32AppSources -PackagePath $Win32AppPath -JsonFile $JsonFile
 
