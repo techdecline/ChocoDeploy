@@ -1,6 +1,10 @@
 # ChocoDeploy
 PowerShell Module to import Chocolatey packages to various Configuration Management Systems
 
+## Important Note
+The Module has been re-added to the PowerShell Gallery with an updated name due to account problems :(
+Please look out for ChocoDeploy2
+
 ## How to use
 
 ### Prerequisites
