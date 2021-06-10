@@ -13,13 +13,19 @@ function New-ChocoIntuneW32AppSources {
     process {
         $jsonFullName = (get-item $JsonFile).FUllName
         $packageObj = get-content $jsonFullName | ConvertFrom-Json -ErrorAction Stop
-
         $pkgFolder = New-Item (Join-Path $PackagePath -ChildPath $packageObj.PackageName) -ItemType DIrectory -Force
         $imageFilePath = Get-ChocoImage -ImageUrl $packageObj.ImageUrl -DownloadLocation $pkgFolder
         $installCmd = "choco install " + $packageObj.PackageName + " -y"
         $uninstallCmd = "choco uninstall " + $packageObj.PackageName + " -y"
         $detectCmd = @"
-`$cmdReturn = Invoke-Expression "choco list --local-only $($packageObj.PackageName)"
+try {
+    `$chocoExe = (Get-Command "choco.exe" -ErrorAction Stop  | Where-Object { `$_.CommandType -eq "Application" }).Source
+    Write-Verbose "Detected Chocolatey executable in: `$chocoExe"
+}
+catch [System.Management.Automation.CommandNotFoundException] {
+    `$chocoExe = Join-Path `$env:ALLUSERSPROFILE -ChildPath "chocolatey\bin\choco.exe"
+}
+`$cmdReturn = Invoke-Expression "`$chocoExe list --local-only $($packageObj.PackageName)"
 if (`$cmdReturn -eq "0 packages installed.")
 {
     return
@@ -47,5 +53,3 @@ else
         return $returnObj
     }
 }
-
-# New-ChocoIntuneW32AppSources -JsonFile C:\sys\git.json -PackagePath C:\Sys
