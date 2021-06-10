@@ -8,7 +8,7 @@ PowerShell Module to import Chocolatey packages to various Configuration Managem
 * PowerShell 5.0+ (No PS 6 Support as of now)
 * Chocolatey installed (see https://chocolatey.org/install)
 * Configuration Manager Console installed (for ConfigMgr Application Creation)
-* Intune Win32 Packaging Tool (see https://github.com/microsoft/Intune-Win32-App-Packaging-Tool)
+* Microsoft Win32 Content Prep Tool (see https://github.com/Microsoft/Microsoft-Win32-Content-Prep-Tool)
 * Internet connectivity
 
 ### Step by Step (ConfigMgr)
