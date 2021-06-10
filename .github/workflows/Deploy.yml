@@ -17,5 +17,5 @@ jobs:
         uses: pcgeek86/publish-powershell-module-action@v19
         id: publish-module
         with:
-          modulePath: chocoDeploy
+          modulePath: chocoDeploy2
           NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }}

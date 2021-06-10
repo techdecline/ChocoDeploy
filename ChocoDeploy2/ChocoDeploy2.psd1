@@ -1,5 +1,5 @@
 #
-# Modulmanifest für das Modul "ChocoDeploy"
+# Modulmanifest für das Modul "ChocoDeploy2"
 #
 # Generiert von: schuchardt
 #
@@ -9,16 +9,16 @@
 @{
 
 # Die diesem Manifest zugeordnete Skript- oder Binärmoduldatei.
-RootModule = 'ChocoDeploy.psm1'
+RootModule = 'ChocoDeploy2.psm1'
 
 # Die Versionsnummer dieses Moduls
-ModuleVersion = '0.2.9'
+ModuleVersion = '0.3.0'
 
 # Unterstützte PSEditions
 # CompatiblePSEditions = @()
 
 # ID zur eindeutigen Kennzeichnung dieses Moduls
-GUID = 'e3a89c94-ae84-45cd-87ad-74c2e126332f'
+GUID = '7ef92b50-ff63-4069-b256-836eab3940ed'
 
 # Autor dieses Moduls
 Author = 'Cornelius Schuchardt'
@@ -27,7 +27,7 @@ Author = 'Cornelius Schuchardt'
 #CompanyName = 'SoftEd Systems GmbH'
 
 # Urheberrechtserklärung für dieses Modul
-Copyright = '(c) 2018 Cornelius Schuchardt. All rights reserved.'
+Copyright = '(c) 2021 Cornelius Schuchardt. All rights reserved.'
 
 # Beschreibung der von diesem Modul bereitgestellten Funktionen
 Description = 'PowerShell Module to import Chocolatey packages to various Configuration Management Systems'
